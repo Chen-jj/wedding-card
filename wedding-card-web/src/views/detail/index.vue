@@ -4,8 +4,9 @@
     <div class="main-detail flex flex-col items-center">
       <span class="subtitle animate__animated animate__fadeInLeft">诚邀您参加我们的婚礼</span>
       <div class="hori-line flex items-center">
-        <div class="line animate__animated animate__fadeInLeft animate__delay-2s"></div>
-        <div class="line-heart animate__animated animate__shakeX animate__infinite animate__slower">
+        <div class="line animate__animated animate__fadeInLeft animate__delay-1s"></div>
+        <div class="line-heart animate__animated animate__delay-1s animate__shakeX animate__infinite animate__slower">
+          <img src="/cookie.png" class="cookie-icon" />
           <!-- <Icon icon="heart|svg" class="heart-icon" size="35" /> -->
         </div>
       </div>
@@ -109,6 +110,11 @@
       background: linear-gradient(to bottom right, @detail-bg-color-s, @detail-bg-color-s 30%, @detail-bg-color-e 70%, @detail-bg-color-e);
     }
 
+    .cookie-icon {
+      width: 50px;
+      height: 50px;
+    }
+
     .heart-icon {
       fill: @dark-color;
     }
@@ -156,6 +162,8 @@
           color: @dark-color;
           font-size: 30px;
           right: 50px;
+          display: flex;
+          flex-direction: row;
         }
       }
       .nav-btn {
