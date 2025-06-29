@@ -30,8 +30,7 @@
 
 <style lang="less" scoped>
   .album-container {
-    height: 1880px;
-    width: 1040px;
+    width: 100%;
 
     img {
       width: 1040px;

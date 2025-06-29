@@ -1,44 +1,45 @@
 <template>
-  <div class="flex flex-col home-container" style="position: relative">
-    <div class="cover-container animate__animated animate__zoomInUp animate__duration-2s">
+  <div class="flex flex-col home-container">
+    <div class="cover-container animate__animated animate__pulse animate__duration-2s">
       <img v-if="cover" class="cover" :src="cover" alt="" />
     </div>
     <div class="flex-1 flex flex-col items-center">
       <div
         class="animate__animated animate__tada animate__repeat-2"
-        style="font-size: 80px; margin-top: 60px; letter-spacing: 40px"
+        style="font-size: 30px; margin-top: 20px; letter-spacing: 20px"
       >
         我们结婚啦
       </div>
       <div class="flex items-center we">
         <div class="flex-1">新郎：{{ groom }}</div>
-        <div style="margin: 0 60px" class="animate__animated animate__heartBeat animate__infinite">
-          <icon icon="heart|svg" size="100" color="red" />
+        <div style="margin: 0 10px" class="animate__animated animate__heartBeat animate__infinite">
+          <!-- <Icon icon="heart|svg" size="30" color="#ff6b6b" /> -->
         </div>
         <div class="flex-1">新娘：{{ bride }}</div>
       </div>
       <div class="name-line flex items-center justify-center">
         <div class="line"></div>
-        <icon
+        <!-- <Icon
           icon="rhombus|svg"
-          style="position: absolute; left: 60px"
-          size="40"
-          color="red"
+          style="position: absolute; left: 50%; margin-left: -85px"
+          size="20"
+          color="#4d532a"
           class="animate__animated animate__fadeInRight animate__delay-2s color-red"
         />
-        <icon icon="rhombus|svg" style="position: absolute" size="60" color="red" />
-        <icon
+        <Icon icon="rhombus|svg" style="position: absolute" size="30" color="#4d532a" />
+        <Icon
           icon="rhombus|svg"
-          style="position: absolute; right: 60px"
-          size="40"
-          color="red"
+          style="position: absolute; left: 50%; margin-left: 65px"
+          size="20"
+          color="#4d532a"
           class="animate__animated animate__fadeInLeft animate__delay-2s"
-        />
+        /> -->
       </div>
       <div class="flex remark items-center">
-        <div class="flex-1" style="text-align: right">{{ day }}</div>
-        <span style="font-weight: bold; margin: 0 10px"> |</span>
-        <div class="flex-1" style="letter-spacing: 0">
+        <div class="flex-1">婚礼日期：{{ day }}</div>
+      </div>
+      <div class="flex count-down items-center">
+        <div class="flex-1" style="letter-spacing: 4">
           {{ countDown }}
         </div>
       </div>
@@ -51,7 +52,7 @@
     <div
       class="cover-text flex flex-col items-center animate__animated animate__fadeInLeft animate__delay-2s"
     >
-      <span style="font-size: 80px; letter-spacing: 28px">LOVE</span>
+      <span style="font-size: 40px; letter-spacing: 14px">LOVE</span>
       <span>执子之手</span>
       <span>与之偕老</span>
     </div>
@@ -70,7 +71,7 @@
   import { useRoute } from 'vue-router';
   import { router } from '/@/router';
   import { get } from '/@/utils/request';
-  import Icon from '/@/components/Icon/index.vue';
+  // import Icon from '/@/components/Icon/index.vue';
 
   const route = useRoute();
   const countDown = ref('');
@@ -78,8 +79,8 @@
 
   const tcbEnv = computed(() => (window as any)._tcbEnv);
   const name = computed(() => route.query.name);
-  const groom = computed(() => tcbEnv.value.GROOM);
-  const bride = computed(() => tcbEnv.value.BRIDE);
+  const groom = '陈嘉健' // computed(() => tcbEnv.value.GROOM);
+  const bride = '尹俏冰' // computed(() => tcbEnv.value.BRIDE);
   const date = computed(() => tcbEnv.value.DATE);
   const day = computed(() => {
     const dateTime = new Date(Date.parse(date.value));
@@ -135,22 +136,18 @@
 </script>
 
 <style lang="less" scoped>
-  .home-container {
-    width: 1080px;
-    height: 1920px;
-    background-color: #fff4e6;
-  }
+  @import '../common.less';
 
-  .we {
-    font-size: 40px;
-    margin-top: 70px;
-    letter-spacing: 4px;
-    font-weight: 340;
+  .home-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: @bg-color;
   }
 
   .cover-container {
     width: 100%;
-    height: 960px;
+    height: 400px;
     .cover {
       width: 100%;
       height: 100%;
@@ -158,67 +155,82 @@
     }
   }
 
+  .we {
+    font-size: 20px;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    font-weight: 340;
+  }
+
   .border-line {
     position: absolute;
-    top: 50px;
-    left: 50px;
-    height: calc(1820px - 16px);
-    width: calc(980px - 16px);
-    border: 8px solid black;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 4px solid @dark-color;
     pointer-events: none;
   }
 
   .name-line {
     position: relative;
-    margin-top: 60px;
+    margin-top: 40px;
     color: red;
+    width: 100%;
 
     .line {
       position: absolute;
-      background: linear-gradient(to left, #efefef, red, #efefef);
-      height: 4px;
-      width: 900px;
+      background: linear-gradient(to left, #efefef, @dark-color, #efefef);
+      height: 2px;
+      left: 30px;
+      right: 30px;
       border-radius: 50%;
     }
   }
 
   .remark {
-    margin-top: 80px;
-    font-size: 34px;
-    letter-spacing: 16px;
+    margin-top: 40px;
+    font-size: 18px;
+    letter-spacing: 0px;
     align-self: stretch;
-    font-weight: 300;
+    text-align: center;
   }
 
   .cover-text {
     position: absolute;
-    top: 100px;
-    left: 100px;
+    top: 250px;
+    left: 30px;
     font-weight: 300;
     letter-spacing: 16px;
-    font-size: 60px;
-    color: white;
+    font-size: 24px;
+    color: @light-color;
   }
 
   .ver-text {
     position: absolute;
-    top: 100px;
-    right: 100px;
-    font-size: 40px;
-    color: white;
-    letter-spacing: 36px;
+    top: 70px;
+    right: 30px;
+    font-size: 18px;
+    color: @light-color;
+    letter-spacing: 10px;
     writing-mode: vertical-lr;
     font-weight: 300;
   }
 
   .more-btn {
-    margin-bottom: 40px;
-    letter-spacing: 30px;
-    background: black;
-    color: white;
-    border: 0;
+    margin-bottom: 20px;
+    padding: 18px 40px;
+    color: @light-color;
+    font-size: 20px;
     font-weight: 300;
-    font-size: 50px;
-    padding: 40px 100px;
+    letter-spacing: 15px;
+    border: 0;
+    border-radius: 15px;
+    background: @dark-color;
+    font-family: 微软雅黑;
+  }
+
+  .count-down {
+    margin-top: 10px;
   }
 </style>

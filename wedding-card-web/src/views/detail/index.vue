@@ -1,31 +1,41 @@
 <template>
   <div class="detail-container">
-    <img class="background-img" src="/background.jpg" alt="" />
-
-    <div v-if="!loaded" class="center-text flex justify-center items-center">
-      <span>正在加载</span>
-    </div>
-    <div v-else-if="!exist" class="center-text flex justify-center items-center">
-      <span>暂未收录</span>
-    </div>
-    <div v-else class="main-detail flex flex-col items-center">
-      <span class="name animate__animated animate__backInDown"> {{ name }}</span>
+    <img class="background-img"  alt="" />
+    <div class="main-detail flex flex-col items-center">
       <span class="subtitle animate__animated animate__fadeInLeft">诚邀您参加我们的婚礼</span>
       <div class="hori-line flex items-center">
         <div class="line animate__animated animate__fadeInLeft animate__delay-2s"></div>
         <div class="line-heart animate__animated animate__shakeX animate__infinite animate__slower">
-          <Icon icon="heart|svg" color="red" size="70" />
+          <!-- <Icon icon="heart|svg" class="heart-icon" size="35" /> -->
         </div>
       </div>
-      <span class="title animate__animated animate__fadeInLeft">时间</span>
-      <span class="content animate__animated animate__fadeInLeft">{{ date }}</span>
+      <span class="title animate__animated animate__fadeInLeft">日期</span>
+      <span class="content animate__animated animate__fadeInLeft">2025年9月13日 星期六</span>
+      <span class="title animate__animated animate__fadeInLeft">户外仪式</span>
+      <span class="content animate__animated animate__fadeInLeft">湖畔草坪 16:00</span>
+      <span class="title animate__animated animate__fadeInLeft">晚宴</span>
+      <span class="content animate__animated animate__fadeInLeft">会英殿 18:00</span>
       <span class="title animate__animated animate__fadeInLeft">详细地址</span>
-      <span class="content animate__animated animate__fadeInLeft">{{ addr }}</span>
-      <span class="title animate__animated animate__fadeInLeft">电话/微信</span>
-      <span class="content animate__animated animate__fadeInLeft">{{ phone }}</span>
+      <span class="content animate__animated animate__fadeInLeft">广州鸣泉居酒店</span>
+
+      <tlbs-map
+        ref="mapRef"
+        api-key="KZQBZ-CDIYB-YHZUP-J5B3D-LW2HH-NUBAM"
+        :center="center"
+        :zoom="zoom"
+        :control="control"
+        style="height: 240px; width: 90%"
+      >
+        <tlbs-multi-marker
+          ref="markerRef"
+          :geometries="geometries"
+          :styles="styles"
+          :options="options"
+        />
+      </tlbs-map>
 
       <button class="nav-btn animate__animated animate__fadeInUp" @click="handleAlbum">
-        我们的照片 >>>
+        来看看我们的照片吧
       </button>
     </div>
   </div>
@@ -33,39 +43,41 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
-  import { useRoute } from 'vue-router';
   import { router } from '/@/router';
-  import { get } from '/@/utils/request';
   import Icon from '/@/components/Icon/index.vue';
 
-  const route = useRoute();
-
-  const loaded = ref(false);
-  const exist = ref(false);
   const tcbEnv = computed(() => (window as any)._tcbEnv);
-  const name = computed(() => route.query.name as string);
-  const date = computed(() => tcbEnv.value.DATE);
-  const addr = computed(() => tcbEnv.value.ADDR);
-  const phone = computed(() => tcbEnv.value.PHONE);
-
-  onMounted(async () => {
-    if (!name.value) {
-      loaded.value = true;
-      exist.value = false;
-      return;
-    }
-
-    try {
-      const data = await get<{ exist: boolean }>({
-        url: `people/${encodeURIComponent(name.value)}`,
-      });
-      if (!data) return;
-
-      exist.value = data.exist;
-    } finally {
-      loaded.value = true;
-    }
+  const date = computed(() => tcbEnv.value.DATE.split(' ')[0]);
+  const outdoor_time = computed(() => tcbEnv.value.DATE.split(' ')[1]);
+  const dinner_time = computed(() => {
+    const outdoor_time = tcbEnv.value.DATE.split(' ')[1].split(':');
+    const dinner_time_h = Number(outdoor_time[0]) + 2;
+    return `${dinner_time_h}:${outdoor_time[1]}:${outdoor_time[2]}`;
   });
+  const addr = computed(() => tcbEnv.value.ADDR);
+
+  const center = ref({ lat: 23.186682, lng: 113.287329 });
+  const zoom = ref(12);
+  const control = {
+    scale: {},
+    zoom: {
+      position: 'topRight',
+    },
+  };
+  const geometries = [
+    { styleId: 'marker',  position: { lat: 23.186682, lng: 113.287329 } },
+  ]
+  const styles = {
+    marker: {
+      width: 20,
+      height: 30,
+      anchor: { x: 10, y: 30 },
+    },
+  };
+  const options = {
+    minZoom: 5,
+    maxZoom: 15,
+  };
 
   function handleAlbum(): void {
     router.push({
@@ -75,10 +87,17 @@
 </script>
 
 <style lang="less" scoped>
+  @import '../common.less';
+
+  .text() {
+    color: @detail-dark-color;
+    text-shadow: 1px 1px 2px @detail-shadow-color;
+  }
+
   .detail-container {
     position: relative;
-    height: 1920px;
-    width: 1080px;
+    height: 100%;
+    width: 100%;
 
     .background-img {
       position: absolute;
@@ -86,8 +105,12 @@
       left: 0;
       height: 100%;
       width: 100%;
-      object-fit: cover;
       z-index: -1;
+      background: linear-gradient(to bottom right, @detail-bg-color-s, @detail-bg-color-s 30%, @detail-bg-color-e 70%, @detail-bg-color-e);
+    }
+
+    .heart-icon {
+      fill: @dark-color;
     }
 
     .main-detail {
@@ -95,61 +118,57 @@
       height: 100%;
       width: 100%;
 
-      .name {
-        font-size: 120px;
-        margin-top: 60px;
-        letter-spacing: 20px;
-      }
       .title {
+        .text();
         align-self: flex-start;
-        font-size: 70px;
+        font-size: 22px;
         font-weight: 340;
-        margin: 40px 120px 0 20px;
-        letter-spacing: 20px;
-      }
-      .content {
-        align-self: flex-start;
-        font-size: 46px;
-        font-weight: 300;
-        margin: 10px 20px 0 20px;
+        margin: 0 5% 5px 5%;
         letter-spacing: 10px;
       }
-      .subtitle {
-        font-size: 60px;
-        margin-top: 60px;
+      .content {
+        .text();
+        align-self: flex-start;
+        font-size: 18px;
         font-weight: 300;
-        letter-spacing: 40px;
+        margin: 0px 5% 20px 5%;
+        letter-spacing: 5px;
+      }
+      .subtitle {
+        .text();
+        font-size: 28px;
+        margin-top: 30px;
+        font-weight: 300;
+        letter-spacing: 5px;
       }
       .hori-line {
         align-self: stretch;
         position: relative;
-        margin-top: 80px;
+        margin: 40px 0 20px;
 
         .line {
           width: 100%;
-          height: 4px;
-          background: red;
+          height: 2px;
+          background: @detail-dark-color;
         }
         .line-heart {
           position: absolute;
-          color: red;
-          font-size: 70px;
-          right: 100px;
+          color: @dark-color;
+          font-size: 30px;
+          right: 50px;
         }
       }
       .nav-btn {
+        .text();
         position: absolute;
-        bottom: 160px;
+        bottom: 30px;
         align-self: center;
-        font-size: 60px;
-        letter-spacing: 20px;
-        background: #f00;
-        color: white;
-        border: 2px solid red;
-        border-radius: 4px;
-        padding: 20px 40px;
-        outline: unset;
-        width: 90%;
+        padding: 10px 30px;
+        font-size: 20px;
+        letter-spacing: 5px;
+        border-radius: 30px;
+        box-shadow: 5px 5px 7px 0px @detail-box-shadow-color;
+        background: linear-gradient(to top left, @detail-bg-color-s, @detail-bg-color-e);
       }
     }
 

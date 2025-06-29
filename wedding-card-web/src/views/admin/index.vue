@@ -65,6 +65,8 @@
 </script>
 
 <style lang="less" scoped>
+  @import '../common.less';
+
   .admin-container {
     position: relative;
     height: 1920px;
@@ -82,7 +84,7 @@
       margin-bottom: 40px;
       font-size: 80px;
       border: 0;
-      border-bottom: 4px solid black;
+      border-bottom: 4px solid @dark-color;
       padding: 20px 40px;
       width: 900px;
       max-width: 900px;
@@ -97,8 +99,8 @@
       margin: 0;
       width: 900px;
       max-width: 900px;
-      background-color: black;
-      color: white;
+      background-color: @dark-color;
+      color: @light-color;
       padding: 10px;
       border: 0;
       outline: none;

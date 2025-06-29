@@ -10,13 +10,10 @@ if (!tcbEnv['BRIDE']) {
   tcbEnv['BRIDE'] = '未设置';
 }
 if (!tcbEnv['DATE']) {
-  tcbEnv['DATE'] = '2020-10-04 12:00:00';
+  tcbEnv['DATE'] = '2025-09-13 16:00:00';
 }
 if (!tcbEnv['ADDR']) {
-  tcbEnv['ADDR'] = '未设置';
-}
-if (!tcbEnv['PHONE']) {
-  tcbEnv['PHONE'] = 12345678900;
+  tcbEnv['ADDR'] = '广州鸣泉居酒店';
 }
 if (!tcbEnv['MHID']) {
   tcbEnv['MHID'] = 'shOUWQDqzJohMHYvKd1dMK0';
