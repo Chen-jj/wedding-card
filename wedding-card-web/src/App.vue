@@ -33,7 +33,7 @@
     try {
       await audio['play']();
     } catch {
-      setTimeout(() => onAudioCanPlay(), 200);
+      setTimeout(() => onAudioCanPlay(), 2000);
     }
   }
 </script>

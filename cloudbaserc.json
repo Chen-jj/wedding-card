@@ -1,7 +1,6 @@
 {
   "version": "2.0",
   "envId": "{{env.ENV_ID}}",
-  "region": "ap-guangzhou",
   "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
   "functionRoot": "./wedding-card-api/dist",
   "framework": {

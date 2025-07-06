@@ -4,7 +4,7 @@
     <div class="main-detail flex flex-col items-center">
       <span class="subtitle animate__animated animate__fadeInLeft">诚邀您参加我们的婚礼</span>
       <div class="hori-line flex items-center">
-        <div class="line animate__animated animate__fadeInLeft animate__delay-1s"></div>
+        <div class="line animate__animated animate__fadeInLeft"></div>
         <div class="line-heart animate__animated animate__delay-1s animate__shakeX animate__infinite animate__slower">
           <img src="/cookie.png" class="cookie-icon" />
           <!-- <Icon icon="heart|svg" class="heart-icon" size="35" /> -->
@@ -13,9 +13,12 @@
       <span class="title animate__animated animate__fadeInLeft">日期</span>
       <span class="content animate__animated animate__fadeInLeft">2025年9月13日 星期六</span>
       <span class="title animate__animated animate__fadeInLeft">户外仪式</span>
-      <span class="content animate__animated animate__fadeInLeft">湖畔草坪 16:00</span>
+      <span class="content animate__animated animate__fadeInLeft">湖畔草坪 迎宾时间：16:30</span>
       <span class="title animate__animated animate__fadeInLeft">晚宴</span>
-      <span class="content animate__animated animate__fadeInLeft">会英殿 18:00</span>
+      <span class="content animate__animated animate__fadeInLeft">会英殿 迎宾时间：18:00</span>
+      <span class="title animate__animated animate__fadeInLeft">联系信息</span>
+      <span class="content content_2  animate__animated animate__fadeInLeft">陈嘉健：18588860103</span>
+      <span class="content animate__animated animate__fadeInLeft">尹俏冰：13824419571</span>
       <span class="title animate__animated animate__fadeInLeft">详细地址</span>
       <span class="content animate__animated animate__fadeInLeft">广州鸣泉居酒店</span>
 
@@ -25,7 +28,7 @@
         :center="center"
         :zoom="zoom"
         :control="control"
-        style="height: 240px; width: 90%"
+        style="height: 250px; width: 90%"
       >
         <tlbs-multi-marker
           ref="markerRef"
@@ -97,7 +100,6 @@
 
   .detail-container {
     position: relative;
-    height: 100%;
     width: 100%;
 
     .background-img {
@@ -127,30 +129,33 @@
       .title {
         .text();
         align-self: flex-start;
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 340;
-        margin: 0 5% 5px 5%;
-        letter-spacing: 10px;
+        margin: 0 5% 8px 5%;
+        letter-spacing: 5px;
       }
       .content {
         .text();
         align-self: flex-start;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 300;
         margin: 0px 5% 20px 5%;
         letter-spacing: 5px;
       }
+      .content_2 {
+        margin-bottom: 8px;
+      }
       .subtitle {
         .text();
         font-size: 28px;
-        margin-top: 30px;
+        margin-top: 35px;
         font-weight: 300;
         letter-spacing: 5px;
       }
       .hori-line {
         align-self: stretch;
         position: relative;
-        margin: 40px 0 20px;
+        margin: 35px 0 25px;
 
         .line {
           width: 100%;
@@ -168,9 +173,7 @@
       }
       .nav-btn {
         .text();
-        position: absolute;
-        bottom: 30px;
-        align-self: center;
+        margin: 30px 0;
         padding: 10px 30px;
         font-size: 20px;
         letter-spacing: 5px;

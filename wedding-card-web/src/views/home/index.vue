@@ -6,7 +6,7 @@
     <div class="flex-1 flex flex-col items-center">
       <div
         class="animate__animated animate__tada animate__repeat-2"
-        style="font-size: 30px; margin-top: 20px; letter-spacing: 20px"
+        style="font-size: 28px; margin-top: 20px; letter-spacing: 20px"
       >
         我们结婚啦
       </div>
@@ -72,15 +72,15 @@
   import { router } from '/@/router';
   import { get } from '/@/utils/request';
   // import Icon from '/@/components/Icon/index.vue';
+  import cover from '/@/assets/cover.jpg';
 
   const route = useRoute();
   const countDown = ref('');
-  const cover = ref('');
 
   const tcbEnv = computed(() => (window as any)._tcbEnv);
   const name = computed(() => route.query.name);
-  const groom = '陈嘉健' // computed(() => tcbEnv.value.GROOM);
-  const bride = '尹俏冰' // computed(() => tcbEnv.value.BRIDE);
+  const groom = computed(() => tcbEnv.value.GROOM);
+  const bride = computed(() => tcbEnv.value.BRIDE);
   const date = computed(() => tcbEnv.value.DATE);
   const day = computed(() => {
     const dateTime = new Date(Date.parse(date.value));
@@ -95,17 +95,17 @@
   onMounted(async () => {
     setCountDown();
     setInterval(setCountDown, 1000);
-    await initCover();
+    // await initCover();
   });
 
-  async function initCover(): Promise<void> {
-    const data = await get<{ url: string }>({
-      url: 'res/cover',
-    });
-    if (!data) return;
+  // async function initCover(): Promise<void> {
+  //   const data = await get<{ url: string }>({
+  //     url: 'res/cover',
+  //   });
+  //   if (!data) return;
 
-    cover.value = data?.url;
-  }
+  //   cover.value = data?.url;
+  // }
 
   function setCountDown(): void {
     const now = new Date().getTime();
@@ -174,7 +174,7 @@
 
   .name-line {
     position: relative;
-    margin-top: 40px;
+    margin-top: 15px;
     color: red;
     width: 100%;
 
@@ -189,7 +189,7 @@
   }
 
   .remark {
-    margin-top: 40px;
+    margin-top: 15px;
     font-size: 18px;
     letter-spacing: 0px;
     align-self: stretch;
@@ -218,7 +218,7 @@
   }
 
   .more-btn {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     padding: 18px 40px;
     color: @light-color;
     font-size: 20px;
@@ -231,6 +231,6 @@
   }
 
   .count-down {
-    margin-top: 10px;
+    margin-top: 8px;
   }
 </style>
