@@ -1,6 +1,6 @@
 <template>
   <div class="detail-container">
-    <img class="background-img"  alt="" />
+    <img class="background-img" alt="" />
     <div class="main-detail flex flex-col items-center">
       <span class="subtitle animate__animated animate__fadeInLeft">诚邀您参加我们的婚礼</span>
       <div class="hori-line flex items-center">
@@ -13,12 +13,9 @@
       <span class="title animate__animated animate__fadeInLeft">日期</span>
       <span class="content animate__animated animate__fadeInLeft">2025年9月13日 星期六</span>
       <span class="title animate__animated animate__fadeInLeft">户外仪式</span>
-      <span class="content animate__animated animate__fadeInLeft">湖畔草坪 迎宾时间：16:30</span>
+      <span class="content animate__animated animate__fadeInLeft">湖畔草坪 迎宾时间 16:30</span>
       <span class="title animate__animated animate__fadeInLeft">晚宴</span>
-      <span class="content animate__animated animate__fadeInLeft">会英殿 迎宾时间：18:00</span>
-      <span class="title animate__animated animate__fadeInLeft">联系信息</span>
-      <span class="content content_2  animate__animated animate__fadeInLeft">陈嘉健：18588860103</span>
-      <span class="content animate__animated animate__fadeInLeft">尹俏冰：13824419571</span>
+      <span class="content animate__animated animate__fadeInLeft">会英殿 迎宾时间 18:00</span>
       <span class="title animate__animated animate__fadeInLeft">详细地址</span>
       <span class="content animate__animated animate__fadeInLeft">广州鸣泉居酒店</span>
 
@@ -48,6 +45,7 @@
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
   import { router } from '/@/router';
+  import cover from '/@/assets/green.jpg';
   import Icon from '/@/components/Icon/index.vue';
 
   const tcbEnv = computed(() => (window as any)._tcbEnv);
@@ -109,7 +107,15 @@
       height: 100%;
       width: 100%;
       z-index: -1;
-      background: linear-gradient(to bottom right, @detail-bg-color-s, @detail-bg-color-s 30%, @detail-bg-color-e 70%, @detail-bg-color-e);
+      // here
+      background: linear-gradient(
+        135deg,
+        #6dae98,
+        #1e5643,
+        #1e3a2f
+      ); /* 深绿色渐变，营造自然和谐的感觉 */
+      // object-fit: cover; /* 设置contain的resize mode */
+      // filter: blur(5px); /* 添加3px的模糊效果 */
     }
 
     .cookie-icon {
@@ -139,7 +145,7 @@
         align-self: flex-start;
         font-size: 22px;
         font-weight: 300;
-        margin: 0px 5% 20px 5%;
+        margin: 0px 5% 30px 5%;
         letter-spacing: 5px;
       }
       .content_2 {
@@ -178,8 +184,8 @@
         font-size: 20px;
         letter-spacing: 5px;
         border-radius: 30px;
-        box-shadow: 5px 5px 7px 0px @detail-box-shadow-color;
-        background: linear-gradient(to top left, @detail-bg-color-s, @detail-bg-color-e);
+        box-shadow: 5px 5px 7px 0px #1e5643;
+        background: #6dae98;
       }
     }
 
